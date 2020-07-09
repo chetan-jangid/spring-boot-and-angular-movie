@@ -1,0 +1,92 @@
+<form nz-form [formGroup]="form">
+  <nz-layout>
+    <nz-content>
+      <div nz-row>
+        <div nz-col nzSpan="21" nzOffset="3" class="mb-1">
+          <nz-radio-group formControlName="action">
+            <label *ngFor="let a of actions" nz-radio nzValue="{{ a.value }}">{{ a.label }}</label>
+          </nz-radio-group>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="24">
+          <nz-form-item *ngIf="getAction() === 'update'">
+            <nz-form-label nzRequired nzSpan="3" [nzFor]="'name'">Select Multiplex</nz-form-label>
+            <nz-form-control nzRequired nzSpan="8"
+            nzErrorTip="Please select multiplex name!">
+              <nz-select formControlName="id" nzPlaceHolder="Select a multiplex name"
+              (ngModelChange)="setMultiplexDetails()" [attr.id]="'name'">
+                <nz-option *ngFor="let m of multiplexes"
+                nzValue="{{ m.id }}" nzLabel="{{ m.multiplexName }}"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label nzRequired nzSpan="3" [nzFor]="'multiplexName'">Multiplex Name</nz-form-label>
+            <nz-form-control nzSpan="8" nzErrorTip="Please enter multiplex name!">
+              <input nz-input placeholder="Enter the multiplex name" formControlName="multiplexName"
+              [attr.id]="'multiplexName'"/>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label nzRequired nzSpan="3" [nzFor]="'address'">Address</nz-form-label>
+            <nz-form-control nzSpan="8" nzErrorTip="Please enter address!">
+              <input nz-input placeholder="Enter the address"
+              formControlName="address" [attr.id]="'address'"/>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label nzSpan="3" [nzFor]="'description'">Description</nz-form-label>
+            <nz-form-control nzSpan="8" nzErrorTip="Please enter description in less than 500 characters!">
+              <nz-input-group>
+                <textarea nz-input formControlName="description" maxlength="100"
+                placeholder="Enter description (optional)"></textarea>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item formArrayName="screens" *ngFor="let control of form.get('screens')['controls']; let i = index">
+            <nz-form-label nzSpan="3" [nzFor]="i">Screen {{ i + 1 }} </nz-form-label>
+            <nz-form-control nzSpan="5" nzErrorTip="Screen name is required"
+            [formGroupName]="i">
+              <input nz-input placeholder="Screen Name"
+                [attr.id]="i" formControlName="name" />
+            </nz-form-control>
+            <button nz-button nzType="dashed" nzDanger (click)="removeScreen(i)" class="ml-1">
+              Remove Screen
+            </button>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 20, offset: 4 }">
+              <button nz-button nzType="dashed" (click)="addScreen()">Add Screen</button>
+            </nz-form-control>
+          </nz-form-item>
+          <div nz-row>
+            <div nz-col nzOffset="3" nzSpan="11">
+              <p class="text-bold">
+                Note: Removing any screen will result into discontinuing movies in that screen.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzOffset="3" class="mt-1" *ngIf="getAction() === 'create'">
+          <button nz-button [nzType]="'primary'" class="text-bold mb-1"
+          type="button" (click)="saveOrUpdate('save')">
+            Save multiplex record <i nz-icon nzType="right"></i>
+          </button>
+        </div>
+        <div nz-col nzOffset="3" class="mt-1" *ngIf="getAction() === 'update'">
+          <button nz-button [nzType]="'primary'" class="text-bold mb-1 mr-1"
+          type="button" (click)="saveOrUpdate('update')">
+            Update multiplex record <i nz-icon nzType="right"></i>
+          </button>
+          <button nz-button [nzType]="'danger'" class="text-bold mb-1"
+          type="button" (click)="delete()">
+            Delete multiplex record <i nz-icon nzType="right"></i>
+          </button>
+        </div>
+      </div>
+    </nz-content>
+  </nz-layout>
+</form>

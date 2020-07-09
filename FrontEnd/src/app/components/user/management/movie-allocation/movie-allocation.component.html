@@ -1,0 +1,48 @@
+<form nz-form [formGroup]="form">
+  <nz-layout>
+    <nz-content>
+      <div nz-row>
+        <div nz-col nzSpan="24">
+          <nz-form-item>
+            <nz-form-label nzRequired nzSpan="3" [nzFor]="'movieId'">Select Movie</nz-form-label>
+            <nz-form-control nzRequired nzSpan="8" nzErrorTip="Please select movie!">
+              <nz-select formControlName="movieId" nzPlaceHolder="Select a movie" [attr.id]="'movieId'">
+                <nz-option *ngFor="let m of movieList"
+                nzValue="{{ m.id }}" nzLabel="{{ m.name }}"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label nzRequired nzSpan="3" [nzFor]="'multiplexId'">Select Multiplex</nz-form-label>
+            <nz-form-control nzRequired nzSpan="8"
+            nzErrorTip="Please select multiplex!">
+              <nz-select formControlName="multiplexId" nzPlaceHolder="Select a multiplex"
+              [attr.id]="'multiplexId'" (ngModelChange)="findScreenDetails()">
+                <nz-option *ngFor="let m of multiplexes"
+                nzValue="{{ m.id }}" nzLabel="{{ m.multiplexName }}"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item *ngIf="screens && screens.length > 0">
+            <nz-form-label nzRequired nzSpan="3" [nzFor]="'multiplexId'">Select Screen</nz-form-label>
+            <nz-form-control nzRequired nzSpan="8" nzErrorTip="Please select screen!">
+              <nz-radio-group formControlName="screenId">
+                <label *ngFor="let s of screens;" nz-radio nzValue="{{ s.screenId }}"
+                [nzDisabled]="s.hasMovieRunning"><span>{{ s.screenName }}</span>
+                <span *ngIf="s.hasMovieRunning" class="ml-1">({{ s.movieName }} running here)</span></label>
+              </nz-radio-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzOffset="3" class="mt-1">
+          <button nz-button [nzType]="'primary'" class="text-bold mb-1"
+          type="button" (click)="allocate()">
+            {{ getButtonText() }} <i nz-icon nzType="right"></i>
+          </button>
+        </div>
+      </div>
+    </nz-content>
+  </nz-layout>
+</form>

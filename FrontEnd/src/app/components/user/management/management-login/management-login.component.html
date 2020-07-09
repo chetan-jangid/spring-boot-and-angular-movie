@@ -1,0 +1,54 @@
+<form nz-form [formGroup]="form" class="login-form" (ngSubmit)="submitForm()">
+  <nz-layout>
+    <nz-content>
+      <div nz-row>
+        <div nz-col nzOffset="9" nzXs="0" nzSm="0" nzMd="6" nzLg="6" nzXl="6"
+        class="p-2 mt-4 login-container">
+          <div nz-row>
+            <div nz-col nzSpan="24" class="text-center pb-1">
+              <h4 nz-typography>Login To Your Account</h4>
+            </div>
+            <div nz-col nzSpan="24">
+              <nz-form-item>
+                <nz-form-control nzErrorTip="Please input your username!">
+                  <nz-input-group>
+                    <input type="text" nz-input formControlName="username" placeholder="Username" />
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-control nzErrorTip="Please input your Password!">
+                  <nz-input-group>
+                    <input type="password" nz-input formControlName="password" placeholder="Password" />
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+              <button nz-button [nzType]="'primary'" class="text-bold mb-1">
+                Log In <i nz-icon nzType="right"></i>
+              </button>
+              <a routerLink="/movie-multiplex-app/app/movie-search" class="text-bold ml-1 mb-1">Back to Search</a>
+            </div>
+          </div>
+        </div>
+
+        <div nz-col nzXs="24" nzSm="24" nzMd="0" nzLg="0" nzXl="0" class="p-1">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please input your username!">
+              <nz-input-group>
+                <input type="text" nz-input formControlName="username" placeholder="Username" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please input your Password!">
+              <nz-input-group>
+                <input type="password" nz-input formControlName="password" placeholder="Password" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <button nz-button [nzType]="'primary'">Log in</button>
+        </div>
+      </div>
+    </nz-content>
+  </nz-layout>
+</form>
