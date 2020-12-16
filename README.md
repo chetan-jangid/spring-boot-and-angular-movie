@@ -1,4 +1,4 @@
-# lti-training-app
+# Spring Boot and Angular Movie Application
  Movie Multiplex App (LTI Training)<br/><br/>
  <b>Backend</b><br/>
  List of all microservices:<br/>
